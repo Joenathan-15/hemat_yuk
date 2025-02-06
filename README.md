@@ -1,16 +1,26 @@
-# hemat_yuk
+# What is Hemat Yuk ?
 
-A new Flutter project.
+"Hemat Yuk" is an Indonesian phrase meaning "Let's Save."
+
+This app will serve as an expense tracker, allowing users to record their income and expenses to monitor their monthly financial activities.
 
 ## Getting Started
+The app bundle is currently on progress
 
-This project is a starting point for a Flutter application.
+## How to Build Your own
+* clone the repository
 
-A few resources to get you started if this is your first Flutter project:
+    ``git clone https://github.com/Joenathan-15/hemat_yuk.git``
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+``cd hemat_yuk``
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+``flutter build apk``
+
+* check the build file on
+
+    ``./hemat_yuk/build/app/outputs/release``
+
+## Dev Note
+This project is a rewrite of the <a href="https://github.com/Joenathan-15/hemat-yuk">Hemat Yuk</a> app, which I originally developed in React Native. I rewrote it as a Flutter application to test my Flutter knowledge.
+
+If you want to customize this Application, feel free to fork the repository.
