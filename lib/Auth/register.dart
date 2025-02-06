@@ -18,18 +18,62 @@ class _RegisterState extends State<Register> {
   TextEditingController passwordController = TextEditingController();
 
   void register() async {
-    String email = emailController.text;
-    String password = passwordController.text;
-    String name = nameController.text;
-    emailController.clear();
-    passwordController.clear();
-    nameController.clear();
+  final String email = emailController.text;
+  final String password = passwordController.text;
+  final String name = nameController.text;
+
+  emailController.clear();
+  passwordController.clear();
+  nameController.clear();
+
+  try {
     final AuthResponse res = await supabase.auth.signUp(
       email: email,
       password: password,
-      data: {"display_name": name}
+      data: {"display_name": name},
     );
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("Check Your Email"),
+        content: const Text("An email confirmation has been sent to your email."),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+            child: Container(
+              padding: const EdgeInsets.all(14),
+              child: const Text("Okay"),
+            ),
+          ),
+        ],
+      ),
+    );
+  } on AuthException catch (error) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("Register Failed"),
+        content: Text(error.message),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+            child: Container(
+              padding: const EdgeInsets.all(14),
+              child: const Text("Okay"),
+            ),
+          ),
+        ],
+      ),
+    );
+  } catch (error) {
+    print('An unexpected error occurred: ${error.toString()}');
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -87,29 +131,7 @@ class _RegisterState extends State<Register> {
                         textColor: Colors.white,
                         onPressed: () => {
                               if (_formKey.currentState!.validate())
-                                {
-                                  register(),
-                                  showDialog(
-                                    context: context,
-                                    builder: (ctx) => AlertDialog(
-                                      title: const Text("Check Your Email"),
-                                      content: const Text(
-                                          "Email Confirmation has been sent to your email"),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(ctx).pop();
-                                          },
-                                          child: Container(
-                                            // color: Theme.of(context).primaryColor,
-                                            padding: const EdgeInsets.all(14),
-                                            child: const Text("okay"),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                }
+                                {register()}
                             },
                         child: Center(
                           child: Text("Register"),
